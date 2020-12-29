@@ -23,4 +23,10 @@ public class UserImage {
     private Integer userId;
 
     private String imageName;
+
+    public UserImage update(String imageName) {
+        this.imageName = imageName;
+
+        return this;
+    }
 }

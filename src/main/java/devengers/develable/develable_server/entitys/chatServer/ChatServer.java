@@ -1,4 +1,4 @@
-package devengers.develable.develable_server.entitys.chatSercer;
+package devengers.develable.develable_server.entitys.chatServer;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +21,8 @@ public class ChatServer {
     private Integer id;
 
     private Integer userId;
+
+    private boolean disclosure;
 
     private String serverId;
 

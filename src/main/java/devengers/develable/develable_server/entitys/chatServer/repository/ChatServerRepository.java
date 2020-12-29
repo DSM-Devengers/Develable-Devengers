@@ -1,6 +1,6 @@
-package devengers.develable.develable_server.entitys.chatSercer.repository;
+package devengers.develable.develable_server.entitys.chatServer.repository;
 
-import devengers.develable.develable_server.entitys.chatSercer.ChatServer;
+import devengers.develable.develable_server.entitys.chatServer.ChatServer;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
