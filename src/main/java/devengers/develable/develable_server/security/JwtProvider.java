@@ -11,26 +11,25 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Base64;
 import java.util.Date;
 
 @Component
 @RequiredArgsConstructor
 public class JwtProvider {
 
-     @Value("${auth.jwt.secret}")
+    @Value("${auth.jwt.secret}")
     private String secretKey;
 
-     @Value("${auth.jwt.exp.access}")
+    @Value("${auth.jwt.exp.access}")
     private Long accessTokenExpiration;
 
-     @Value("${auth.jwt.exp.refresh}")
+    @Value("${auth.jwt.exp.refresh}")
     private Long refreshTokenExpiration;
 
-     @Value("${auth.jwt.header}")
+    @Value("${auth.jwt.header}")
     private String header;
 
-     @Value("${auth.jwt.prefix}")
+    @Value("${auth.jwt.prefix}")
     private String prefix;
 
     private final AuthDetailsService authDetailsService;
@@ -41,7 +40,7 @@ public class JwtProvider {
                 .setExpiration(new Date(System.currentTimeMillis() + accessTokenExpiration * 1000))
                 .setSubject(id.toString())
                 .claim("type", "access_token")
-                .signWith(SignatureAlgorithm.HS256, Base64.getEncoder().encodeToString(secretKey.getBytes()))
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
 

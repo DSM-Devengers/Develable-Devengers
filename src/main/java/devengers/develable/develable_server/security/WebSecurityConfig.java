@@ -19,24 +19,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+    public AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception{
         http
                 .csrf().disable()
+                .cors().and()
                 .formLogin().disable()
                 .authorizeRequests()
                 .antMatchers("/auth").permitAll()
                 .antMatchers("/user/**").permitAll()
+                .antMatchers("/email/**").permitAll()
                 .and()
                 .apply(new JwtConfigure(jwtProvider)).and();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 }

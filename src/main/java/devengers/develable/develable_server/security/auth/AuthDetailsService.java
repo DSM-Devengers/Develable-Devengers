@@ -8,14 +8,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class   AuthDetailsService implements UserDetailsService {
+public class AuthDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
     @Override
-    public AuthDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findById(Integer.parseInt(username))
+    public AuthDetails loadUserByUsername(String receiptCode) throws UsernameNotFoundException {
+        return userRepository.findById(Integer.parseInt(receiptCode))
                 .map(AuthDetails::new)
                 .orElseThrow(RuntimeException::new);
     }
+
 }

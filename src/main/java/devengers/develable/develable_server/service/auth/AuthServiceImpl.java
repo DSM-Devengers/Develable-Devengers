@@ -9,14 +9,19 @@ import devengers.develable.develable_server.payload.response.TokenResponse;
 import devengers.develable.develable_server.security.JwtProvider;
 import devengers.develable.develable_server.service.refreshToken.RefreshTokenServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService{
 
+    @Value("${auth.jwt.exp.refresh}")
     private Long refreshExp;
 
+    @Value("${auth.jwt.prefix}")
     private String tokenType;
 
     private final UserRepository userRepository;
@@ -25,13 +30,12 @@ public class AuthServiceImpl implements AuthService{
     private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
     private final RefreshTokenServiceImpl refreshTokenService;
-    private final AuthenticationManager authenticationManager;
 
     @Override
     public TokenResponse signIn(SignInRequest signInRequest) {
         return userRepository.findByEmail(signInRequest.getEmail())
                 .filter(user -> passwordEncoder.matches(signInRequest.getPassword(), user.getPassword()))
-                .map(User::getId)
+                .map(User::getUserId)
                 .map(id -> {
                     String accessToken = jwtProvider.generateAccessToken(id);
                     String refreshToken = jwtProvider.generateRefreshToken(id);

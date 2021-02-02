@@ -1,8 +1,8 @@
 package devengers.develable.develable_server.security.auth;
 
 import devengers.develable.develable_server.entitys.user.User;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class AuthDetails implements UserDetails {
 
     private final User user;
