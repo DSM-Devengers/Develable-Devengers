@@ -52,6 +52,9 @@ public class UserServiceImpl implements UserService{
                 .build()
         );
 
+        userRepository.save(user);
+        user.setUserCode(UUID.randomUUID().toString());
+
         UserImage userImage = userImageRepository.save(
                 UserImage.builder()
                 .userId(user.getUserId())
@@ -62,8 +65,6 @@ public class UserServiceImpl implements UserService{
             signUpRequest.getImage()
                 .transferTo(new File(imageDir, userImage.getImageName()));
     }
-
-
 
     @Override
     public void changeUserInfo(ChangeUserRequest changeUserRequest) {
@@ -84,7 +85,7 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.findByUserId(authenticationFacade.getUserId())
                 .orElseThrow(RuntimeException::new);
 
-        UserImage userImage = userImageRepository.findByUserId(user.getId())
+        UserImage userImage = userImageRepository.findByUserId(user.getUserId())
                 .orElseThrow(RuntimeException::new);
 
         String imageName = UUID.randomUUID().toString();

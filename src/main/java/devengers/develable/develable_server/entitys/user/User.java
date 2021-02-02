@@ -16,10 +16,9 @@ import javax.validation.constraints.Email;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
+
+    private String userCode;
 
     private Integer age;
 

@@ -23,4 +23,8 @@ public class TodoListImage {
     private Integer todoId;
 
     private String imageName;
+
+    public void update(String imageName) {
+        this.imageName = imageName;
+    }
 }
