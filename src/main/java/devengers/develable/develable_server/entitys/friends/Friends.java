@@ -1,4 +1,4 @@
-package devengers.develable.develable_server.entitys.chatSercer;
+package devengers.develable.develable_server.entitys.friends;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,19 +10,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Getter
 @Entity
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChatServer {
+public class Friends {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Integer userId;
 
-    private String serverId;
-
-    private String serverName;
+    private String friendCode;
 }
