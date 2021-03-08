@@ -49,9 +49,7 @@ public class EmailAuthServiceImpl implements EmailAuthService{
         return false;
     }
 
-    @SneakyThrows
-    @Override
-    public void sendEmail(String email) {
+    private void sendMail(String email) {
         if(email.isEmpty()) {
             throw new RuntimeException();
         }
@@ -82,29 +80,14 @@ public class EmailAuthServiceImpl implements EmailAuthService{
 
     @SneakyThrows
     @Override
+    public void sendEmail(String email) {
+        sendMail(email);
+    }
+
+    @SneakyThrows
+    @Override
     public void resendEmail(String email) {
-        if(email.isEmpty()) {
-            throw new RuntimeException();
-        }else if(checkSame(email)) {
-            throw new RuntimeException();
-        }else {
-            String key = getKey();
-
-            EmailAuth emailAuth = emailAuthRepository.findByEmail(email)
-                    .orElseThrow(RuntimeException::new);
-            emailAuth.update(key);
-
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setTo(email);
-            message.setSubject("[Develable]인증을 위한 메일입니다");
-            message.setText(
-                    "저희 앱을 이용해 주셔서 감사합니다!\n" +
-                            "인증코드 : " + emailAuth.getKey()
-            );
-            javaMailSender.send(message);
-
-            emailAuthRepository.save(emailAuth);
-        }
+        sendMail(email);
     }
 
     @Override
