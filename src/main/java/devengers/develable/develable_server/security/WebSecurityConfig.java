@@ -34,7 +34,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/email/**").permitAll()
                 .and()
-                .apply(new JwtConfigure(jwtProvider)).and();
+                .apply(new JwtConfigure(jwtProvider))
+                .and()
+                .oauth2Login()
+                .userInfoEndpoint();
     }
 
     @Bean
